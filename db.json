@@ -1,13 +1,13 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Ana (Criadora)",
       "email": "ana@test.com",
       "password": "123456"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Beto (Instrutor)",
       "email": "beto@test.com",
       "password": "123456"
@@ -15,7 +15,7 @@
   ],
   "courses": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Curso de React com Hooks",
       "description": "Aprenda React do zero ao avançado, focado em hooks e boas práticas.",
       "start_date": "2025-11-01",
@@ -27,8 +27,8 @@
       ]
     },
     {
-      "id": 2,
-      "name": "Backend com Node.js",
+      "id": "2",
+      "name": "Backend com Node.js com Beto",
       "description": "Crie APIs RESTful robustas e escaláveis.",
       "start_date": "2026-01-10",
       "end_date": "2026-02-10",
@@ -36,11 +36,22 @@
       "instructors": [
         2
       ]
+    },
+    {
+      "id": "fcb3",
+      "name": "Curso TestAna",
+      "description": "",
+      "start_date": "2025-10-23",
+      "end_date": "2025-10-24",
+      "creator_id": 1,
+      "instructors": [
+        1
+      ]
     }
   ],
   "lessons": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Introdução ao React e JSX",
       "status": "published",
       "publish_date": "2025-11-05",
@@ -49,7 +60,7 @@
       "creator_id": 1
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "O que são Hooks?",
       "status": "draft",
       "publish_date": "2025-11-10",
@@ -58,7 +69,7 @@
       "creator_id": 2
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "useState e useEffect",
       "status": "archived",
       "publish_date": "2025-11-12",

@@ -3,6 +3,7 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import { Typography } from '@mui/material';
+import CourseFormPage from './pages/CourseFormPage';
 
 function App() {
   return (
@@ -14,6 +15,23 @@ function App() {
         element={
           <ProtectedRoute>
             <DashboardPage />
+          </ProtectedRoute>
+        } 
+      />
+      
+      <Route 
+        path="/course/new" 
+        element={
+          <ProtectedRoute>
+            <CourseFormPage />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/course/edit/:id" 
+        element={
+          <ProtectedRoute>
+            <CourseFormPage />
           </ProtectedRoute>
         } 
       />
