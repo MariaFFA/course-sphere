@@ -76,3 +76,61 @@ export const apiUpdateCourse = async (id, courseData) => {
   }
   return await response.json();
 };
+
+// Função para obter as aulas de um curso por ID do curso
+export const apiGetLessonsByCourseId = async (courseId) => {
+  const response = await fetch(`${BASE_URL}/lessons?course_id=${courseId}`);
+  if (!response.ok) {
+    throw new Error('Não foi possível carregar as aulas.');
+  }
+  return await response.json();
+};
+
+// Função para criar uma nova aula
+export const apiCreateLesson = async (lessonData) => {
+  const response = await fetch(`${BASE_URL}/lessons`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(lessonData),
+  });
+  if (!response.ok) {
+    throw new Error('Não foi possível criar a aula.');
+  }
+  return await response.json();
+};
+
+// Função para atualizar uma aula
+export const apiUpdateLesson = async (lessonId, lessonData) => {
+  const response = await fetch(`${BASE_URL}/lessons/${lessonId}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(lessonData),
+  });
+  if (!response.ok) {
+    throw new Error('Não foi possível atualizar a aula.');
+  }
+  return await response.json();
+};
+
+// Função para deletar uma aula
+export const apiDeleteLesson = async (lessonId) => {
+  const response = await fetch(`${BASE_URL}/lessons/${lessonId}`, {
+    method: 'DELETE',
+  });
+  if (!response.ok) {
+    throw new Error('Não foi possível deletar a aula.');
+  }
+  return await response.json();
+};
+
+
+// Função para obter usuários por um array de IDs
+export const apiGetUsersByIds = async (idArray) => {
+  const query = idArray.map(id => `id=${id}`).join('&');
+  
+  const response = await fetch(`${BASE_URL}/users?${query}`);
+  if (!response.ok) {
+    throw new Error('Não foi possível carregar os instrutores.');
+  }
+  return await response.json();
+};

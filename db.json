@@ -67,15 +67,6 @@
       "video_url": "https://www.youtube.com/watch?v=e-5obm1G_FY",
       "course_id": 1,
       "creator_id": 2
-    },
-    {
-      "id": "3",
-      "title": "useState e useEffect",
-      "status": "archived",
-      "publish_date": "2025-11-12",
-      "video_url": "https://www.youtube.com/watch?v=Jc-mYq3-2B4",
-      "course_id": 1,
-      "creator_id": 1
     }
   ]
 }

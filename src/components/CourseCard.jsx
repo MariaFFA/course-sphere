@@ -46,7 +46,7 @@ const CourseCard = ({ course }) => {
         <Button 
           size="small" 
           variant="contained"
-          onClick={() => alert('Em breve: /course/detail/' + course.id)}
+          onClick={() => navigate(`/course/${course.id}`)}
         >
           Ver Detalhes
         </Button>

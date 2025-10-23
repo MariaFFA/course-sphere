@@ -4,6 +4,7 @@ import DashboardPage from './pages/DashboardPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import { Typography } from '@mui/material';
 import CourseFormPage from './pages/CourseFormPage';
+import CourseDetailPage from './pages/CourseDetailPage';
 
 function App() {
   return (
@@ -32,6 +33,15 @@ function App() {
         element={
           <ProtectedRoute>
             <CourseFormPage />
+          </ProtectedRoute>
+        } 
+      />
+
+      <Route 
+        path="/course/:id" 
+        element={
+          <ProtectedRoute>
+            <CourseDetailPage />
           </ProtectedRoute>
         } 
       />
