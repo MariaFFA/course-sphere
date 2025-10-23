@@ -1,8 +1,7 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { apiLogin } from '../services/api';
 import { useNavigate } from 'react-router-dom';
-
-const AuthContext = createContext(null);
+import { AuthContext } from '../hooks/useAuth';
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -52,13 +51,4 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-};
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth precisa ser usado dentro de um AuthProvider');
-  }
-  return context;
 };
