@@ -62,10 +62,10 @@ export const apiCreateCourse = async (courseData) => {
   return await response.json();
 };
 
-// Função para atualizar um curso existente
+// Função para atualizar um curso
 export const apiUpdateCourse = async (id, courseData) => {
   const response = await fetch(`${BASE_URL}/courses/${id}`, {
-    method: 'PUT', // PUT substitui o objeto inteiro
+    method: 'PUT', 
     headers: {
       'Content-Type': 'application/json',
     },
@@ -77,13 +77,15 @@ export const apiUpdateCourse = async (id, courseData) => {
   return await response.json();
 };
 
-// Função para obter as aulas de um curso por ID do curso
+// Função para obter aulas por ID do curso
 export const apiGetLessonsByCourseId = async (courseId) => {
   const response = await fetch(`${BASE_URL}/lessons?course_id=${courseId}`);
+  
   if (!response.ok) {
     throw new Error('Não foi possível carregar as aulas.');
   }
-  return await response.json();
+  
+  return await response.json(); 
 };
 
 // Função para criar uma nova aula
