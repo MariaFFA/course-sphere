@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import LessonFormModal from '../components/LessonFormModal';
+import InstructorManager from '../components/InstructorManager';
 import { 
   apiGetCourseById, 
   apiGetLessonsByCourseId, 
@@ -173,6 +174,22 @@ const CourseDetailPage = () => {
     }));
   };
 
+  const refreshInstructorData = async () => {
+    try {
+      const courseData = await apiGetCourseById(id);
+      setCourse(courseData);
+
+      if (courseData.instructors.length > 0) {
+        const instructorData = await apiGetUsersByIds(courseData.instructors);
+        setInstructors(instructorData);
+      } else {
+        setInstructors([]);
+      }
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   const filteredLessons = useMemo(() => {
     return allLessons.filter(lesson => {
       const statusMatch = filters.status 
@@ -334,21 +351,34 @@ const CourseDetailPage = () => {
 
                 <Grid item xs={12} md={4}>
                     <Typography variant="h5" component="h2" sx={{ mb: 2 }}>Instrutores</Typography>
+                    {isCreator ? (
                     <Paper elevation={2} sx={{ p: 2 }}>
+                        <InstructorManager 
+                        course={course}
+                        instructors={instructors}
+                        onInstructorsUpdate={refreshInstructorData}
+                        />
+                    </Paper>
+                    ) : (
+                    <Box>
+                        <Typography variant="h5" component="h2" sx={{ mb: 2 }}>Instrutores</Typography>
+                        <Paper elevation={2} sx={{ p: 2 }}>
                         <List>
-                        {instructors.map((inst, index) => (
+                            {instructors.map((inst, index) => (
                             <Box key={inst.id}>
-                            <ListItem>
+                                <ListItem>
                                 <ListItemIcon>
-                                <Avatar>{inst.name[0]}</Avatar>
+                                    <Avatar>{inst.name[0]}</Avatar>
                                 </ListItemIcon>
                                 <ListItemText primary={inst.name} secondary={inst.email} />
-                            </ListItem>
-                            {index < instructors.length - 1 && <Divider />}
+                                </ListItem>
+                                {index < instructors.length - 1 && <Divider />}
                             </Box>
-                        ))}
+                            ))}
                         </List>
-                    </Paper>
+                        </Paper>
+                    </Box>
+                    )}
                 </Grid>
             </Grid>
         </Container>

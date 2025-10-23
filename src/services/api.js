@@ -136,3 +136,38 @@ export const apiGetUsersByIds = async (idArray) => {
   }
   return await response.json();
 };
+
+// Função para sugerir um instrutor aleatório
+export const apiSuggestInstructor = async () => {
+  const response = await fetch('https://randomuser.me/api/?nat=br');
+  if (!response.ok) {
+    throw new Error('Não foi possível buscar sugestão.');
+  }
+  const data = await response.json();
+  const user = data.results[0];
+  
+  return {
+    name: `${user.name.first} ${user.name.last}`,
+    email: user.email,
+    picture: user.picture.thumbnail,
+  };
+};
+
+// Função para criar um novo usuário
+export const apiCreateUser = async (userData) => {
+  const userWithPassword = {
+    ...userData,
+    password: '123456' 
+  };
+
+  const response = await fetch(`${BASE_URL}/users`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(userWithPassword),
+  });
+  
+  if (!response.ok) {
+    throw new Error('Não foi possível criar o novo usuário em nosso banco.');
+  }
+  return await response.json();
+};
