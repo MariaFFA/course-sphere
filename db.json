@@ -60,6 +60,13 @@
       "email": "janis.porto@example.com",
       "picture": "https://randomuser.me/api/portraits/thumb/women/34.jpg",
       "password": "123456"
+    },
+    {
+      "id": "13b8",
+      "name": "Odair Oliveira",
+      "email": "odair.oliveira@example.com",
+      "picture": "https://randomuser.me/api/portraits/thumb/men/99.jpg",
+      "password": "123456"
     }
   ],
   "courses": [

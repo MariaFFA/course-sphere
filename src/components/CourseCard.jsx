@@ -42,7 +42,7 @@ const CourseCard = ({ course }) => {
         </Box>
       </CardContent>
       
-      <CardActions>
+      <CardActions sx={{ gap: 1 }}>
         <Button 
           size="small" 
           variant="contained"

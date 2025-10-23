@@ -29,11 +29,13 @@ import {
   Divider,
   Chip,
   Pagination,
+  Stack,
   TextField,
   Select,
   MenuItem,
   FormControl,
-  InputLabel
+  InputLabel,
+  IconButton
 } from '@mui/material';
 import { School, Event, Edit, Delete } from '@mui/icons-material'; 
 
@@ -296,18 +298,18 @@ const CourseDetailPage = () => {
                             return (
                             <Box key={lesson.id}>
                                 <ListItem 
-                                secondaryAction={
-                                    canEditLesson && (
-                                    <Box>
-                                        <Button size="small" onClick={() => handleEditLesson(lesson)} sx={{ mr: 1 }}>
-                                        <Edit fontSize="small" />
-                                        </Button>
-                                        <Button size="small" color="error" onClick={() => handleDeleteLesson(lesson)}>
-                                        <Delete fontSize="small" />
-                                        </Button>
-                                    </Box>
-                                    )
-                                }
+                                    secondaryAction={
+                                        canEditLesson && (
+                                        <Stack direction="row" spacing={1}>
+                                            <IconButton size="small" onClick={() => handleEditLesson(lesson)} aria-label="edit">
+                                            <Edit fontSize="small" />
+                                            </IconButton>
+                                            <IconButton size="small" color="error" onClick={() => handleDeleteLesson(lesson)} aria-label="delete">
+                                            <Delete fontSize="small" />
+                                            </IconButton>
+                                        </Stack>
+                                        )
+                                    }
                                 >
                                 <ListItemText 
                                     primary={lesson.title}
