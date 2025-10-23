@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { useFeedback } from '../hooks/useFeedback';
 import LessonFormModal from '../components/LessonFormModal';
 import InstructorManager from '../components/InstructorManager';
 import { 
@@ -48,6 +49,7 @@ const CourseDetailPage = () => {
   const { id } = useParams();
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { showFeedback } = useFeedback();
 
   const [course, setCourse] = useState(null);
   const [instructors, setInstructors] = useState([]);
@@ -129,8 +131,9 @@ const CourseDetailPage = () => {
       try {
         await apiDeleteLesson(lesson.id);
         fetchLessons(); 
+        showFeedback('Aula deletada com sucesso!', 'success');
       } catch (err) {
-        setError(err.message);
+        showFeedback(err.message, 'error');
       }
     }
   };
@@ -141,6 +144,7 @@ const CourseDetailPage = () => {
         const originalLesson = allLessons.find(l => l.id === lessonId);
         const lessonData = { ...originalLesson, ...formData };
         await apiUpdateLesson(lessonId, lessonData);
+        showFeedback('Aula atualizada com sucesso!', 'success');
       } else {
         const newLessonData = {
           ...formData,
@@ -148,13 +152,14 @@ const CourseDetailPage = () => {
           creator_id: user.id, 
         };
         await apiCreateLesson(newLessonData);
+        showFeedback('Aula criada com sucesso!', 'success');
       }
 
       setModalOpen(false);
       fetchLessons();
 
     } catch (err) {
-      setError(`Erro ao salvar aula: ${err.message}`);
+      showFeedback(`Erro ao salvar aula: ${err.message}`, 'error');
     }
   };
 
@@ -174,20 +179,9 @@ const CourseDetailPage = () => {
     }));
   };
 
-  const refreshInstructorData = async () => {
-    try {
-      const courseData = await apiGetCourseById(id);
-      setCourse(courseData);
-
-      if (courseData.instructors.length > 0) {
-        const instructorData = await apiGetUsersByIds(courseData.instructors);
-        setInstructors(instructorData);
-      } else {
-        setInstructors([]);
-      }
-    } catch (err) {
-      setError(err.message);
-    }
+  const updateInstructorData = ( newCourseData, newInstructorObjects) => {
+    setCourse(newCourseData); 
+    setInstructors(newInstructorObjects);
   };
 
   const filteredLessons = useMemo(() => {
@@ -356,7 +350,7 @@ const CourseDetailPage = () => {
                         <InstructorManager 
                         course={course}
                         instructors={instructors}
-                        onInstructorsUpdate={refreshInstructorData}
+                        onInstructorsUpdate={updateInstructorData}
                         />
                     </Paper>
                     ) : (

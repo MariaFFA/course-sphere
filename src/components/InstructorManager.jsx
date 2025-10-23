@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useFeedback } from '../hooks/useFeedback';
 import {
   List,
   ListItem,
@@ -9,7 +10,6 @@ import {
   Button,
   Box,
   Typography,
-  Alert,
   CircularProgress
 } from '@mui/material';
 import { Delete, PersonAdd } from '@mui/icons-material';
@@ -18,18 +18,17 @@ import { apiSuggestInstructor, apiCreateUser, apiUpdateCourse } from '../service
 const InstructorManager = ({ course, instructors, onInstructorsUpdate }) => {
   const [suggestion, setSuggestion] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const { showFeedback } = useFeedback();
   
   // Função para buscar uma sugestão de instrutor
   const handleSuggest = async () => {
     setLoading(true);
-    setError(null);
     setSuggestion(null);
     try {
       const suggestedUser = await apiSuggestInstructor();
       setSuggestion(suggestedUser);
     } catch (err) {
-      setError(err.message);
+      showFeedback(err.message, 'error')
     } finally {
       setLoading(false);
     }
@@ -40,45 +39,54 @@ const InstructorManager = ({ course, instructors, onInstructorsUpdate }) => {
     if (!suggestion) return;
     
     setLoading(true);
-    setError(null);
     try {
-      const newUserData = await apiCreateUser(suggestion);
-      
-      const updatedInstructors = [...course.instructors, newUserData.id];
-      const updatedCourseData = { ...course, instructors: updatedInstructors };
-      
-      await apiUpdateCourse(course.id, updatedCourseData);
-      
-      setSuggestion(null);
-      onInstructorsUpdate();
-      
+        const newUserData = await apiCreateUser(suggestion);
+
+        const updatedInstructorsIDs = [...course.instructors, newUserData.id];
+
+        const updatedCourseData = { ...course, instructors: updatedInstructorsIDs };
+
+        const updatedInstructorObjects = [...instructors, newUserData];
+
+        await apiUpdateCourse(course.id, updatedCourseData);
+
+        setSuggestion(null);
+
+        onInstructorsUpdate(updatedCourseData, updatedInstructorObjects);
+
+        showFeedback('Instrutor adicionado com sucesso!', 'success'); 
+
     } catch (err) {
-      setError(err.message);
+        showFeedback(err.message, 'error');
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
   };
   
   const handleRemoveInstructor = async (instructorId) => {
-    if (Number(instructorId) === course.creator_id) {
-      setError("Você não pode remover a si mesmo (o criador) do curso.");
+    if (String(instructorId) === String(course.creator_id)) {
+      showFeedback("Você não pode remover a si mesmo (o criador) do curso.", 'warning');
       return;
     }
     
     setLoading(true);
-    setError(null);
     try {
-      const updatedInstructors = course.instructors.filter(id => id !== Number(instructorId));
-      const updatedCourseData = { ...course, instructors: updatedInstructors };
+        const updatedInstructorIDs = course.instructors.filter(id => String(id) !== String(instructorId));
 
-      await apiUpdateCourse(course.id, updatedCourseData);
+        const updatedCourseData = { ...course, instructors: updatedInstructorIDs };
 
-      onInstructorsUpdate();
-      
+        const updatedInstructorObjects = instructors.filter(inst => String(inst.id) !== String(instructorId));
+
+        await apiUpdateCourse(course.id, updatedCourseData);
+
+        onInstructorsUpdate(updatedCourseData, updatedInstructorObjects);
+
+        showFeedback('Instrutor removido com sucesso!', 'success');
+
     } catch (err) {
-      setError(err.message);
+        showFeedback(err.message, 'error');
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
   };
 
@@ -93,7 +101,7 @@ const InstructorManager = ({ course, instructors, onInstructorsUpdate }) => {
                 edge="end" 
                 aria-label="delete"
                 onClick={() => handleRemoveInstructor(inst.id)}
-                disabled={loading || Number(inst.id) === course.creator_id}
+                disabled={loading || String(inst.id) === String(course.creator_id)}
                 >
                 <Delete />
                 </IconButton>
@@ -104,7 +112,7 @@ const InstructorManager = ({ course, instructors, onInstructorsUpdate }) => {
             </ListItemAvatar>
             <ListItemText 
                 primary={inst.name} 
-                secondary={Number(inst.id) === course.creator_id ? 'Criador' : inst.email} 
+                secondary={String(inst.id) === String(course.creator_id) ? 'Criador' : inst.email}
             />
             </ListItem>
         ))}
@@ -140,7 +148,6 @@ const InstructorManager = ({ course, instructors, onInstructorsUpdate }) => {
           {loading ? <CircularProgress size={24} /> : 'Buscar Sugestão'}
         </Button>
 
-        {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
       </Box>
     </Box>
   );

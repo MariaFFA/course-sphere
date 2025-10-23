@@ -11,6 +11,55 @@
       "name": "Beto (Instrutor)",
       "email": "beto@test.com",
       "password": "123456"
+    },
+    {
+      "id": "bb32",
+      "name": "Priam Rodrigues",
+      "email": "priam.rodrigues@example.com",
+      "picture": "https://randomuser.me/api/portraits/thumb/men/22.jpg",
+      "password": "123456"
+    },
+    {
+      "id": "4b8d",
+      "name": "Sineide Costa",
+      "email": "sineide.costa@example.com",
+      "picture": "https://randomuser.me/api/portraits/thumb/women/0.jpg",
+      "password": "123456"
+    },
+    {
+      "id": "79cc",
+      "name": "Bernardina Teixeira",
+      "email": "bernardina.teixeira@example.com",
+      "picture": "https://randomuser.me/api/portraits/thumb/women/84.jpg",
+      "password": "123456"
+    },
+    {
+      "id": "05b1",
+      "name": "Tasmira da Rosa",
+      "email": "tasmira.darosa@example.com",
+      "picture": "https://randomuser.me/api/portraits/thumb/women/42.jpg",
+      "password": "123456"
+    },
+    {
+      "id": "a740",
+      "name": "Anunciata Nunes",
+      "email": "anunciata.nunes@example.com",
+      "picture": "https://randomuser.me/api/portraits/thumb/women/31.jpg",
+      "password": "123456"
+    },
+    {
+      "id": "2c26",
+      "name": "Celma Silva",
+      "email": "celma.silva@example.com",
+      "picture": "https://randomuser.me/api/portraits/thumb/women/48.jpg",
+      "password": "123456"
+    },
+    {
+      "id": "e1a8",
+      "name": "Janis Porto",
+      "email": "janis.porto@example.com",
+      "picture": "https://randomuser.me/api/portraits/thumb/women/34.jpg",
+      "password": "123456"
     }
   ],
   "courses": [
@@ -42,6 +91,17 @@
       "description": "",
       "start_date": "2025-10-23",
       "end_date": "2025-10-24",
+      "creator_id": 1,
+      "instructors": [
+        1
+      ]
+    },
+    {
+      "id": "6f5f",
+      "name": "Novo Curso sobre feedback",
+      "description": "",
+      "start_date": "2025-10-25",
+      "end_date": "2025-10-30",
       "creator_id": 1,
       "instructors": [
         1

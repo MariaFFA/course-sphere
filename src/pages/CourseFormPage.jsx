@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { useFeedback } from '../hooks/useFeedback';
 import { apiGetCourseById, apiCreateCourse, apiUpdateCourse } from '../services/api';
 import {
   Container,
@@ -18,6 +19,7 @@ const CourseFormPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { showFeedback } = useFeedback();
 
   // Estado do formulário
   const [formData, setFormData] = useState({
@@ -116,6 +118,7 @@ const CourseFormPage = () => {
         const courseData = await apiGetCourseById(id);
         const updatedData = { ...courseData, ...formData };
         await apiUpdateCourse(id, updatedData);
+        showFeedback('Curso atualizado com sucesso!', 'success');
       } else {
         const newCourseData = {
         ...formData,
@@ -124,18 +127,18 @@ const CourseFormPage = () => {
         };
 
         await apiCreateCourse(newCourseData);
-}
+        showFeedback('Curso criado com sucesso!', 'success');
+    }
       
       navigate('/dashboard');
 
     } catch (err) {
       setError(err.message);
+      showFeedback(err.message, 'error');
     } finally {
       setLoading(false);
     }
   };
-
-  // --- Renderização Condicional ---
 
   if (loading && isEditMode) {
     return (
