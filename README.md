@@ -1,27 +1,37 @@
 # CourseSphere - Desafio Técnico V-Lab UFPE
 
+## 🚀 Deploy
+
+A aplicação está disponível para visualização e teste no seguinte link:
+
+**[https://course-sphere-eight.vercel.app/](https://course-sphere-eight.vercel.app/)**
+
+**Nota:** A API de produção (via `my-json-server`) é *somente-leitura*. Funcionalidades de Criar, Atualizar e Deletar (Cursos, Aulas, Instrutores) são desabilitadas no deploy, mas estão 100% funcionais no ambiente de desenvolvimento local.
+
+---
+
 **CourseSphere** é uma plataforma de gestão de cursos online colaborativa, desenvolvida como parte do desafio técnico para a vaga de Desenvolvedor(a) Front-End no V-Lab UFPE.
 
 A aplicação foi construída em **React (com Hooks)** e **Material UI (MUI)**, consumindo uma API local simulada com `json-server`.
 
 ## Funcionalidades Implementadas
 
-* [cite_start]**Autenticação:** Sistema completo de Login e Logout com persistência de sessão (localStorage) e rotas protegidas[cite: 8].
-* [cite_start]**CRUD de Cursos:** Usuários podem criar, listar, atualizar e deletar cursos[cite: 9].
-    * [cite_start]**Permissões:** Apenas o criador do curso pode editá-lo ou deletá-lo[cite: 39].
-* [cite_start]**CRUD de Aulas:** Dentro de um curso, instrutores podem criar, editar e deletar aulas[cite: 9, 81].
-    * [cite_start]**Permissões Avançadas:** Qualquer instrutor do curso pode criar uma aula [cite: 46][cite_start], mas apenas o criador da *aula* ou o criador do *curso* pode editar/deletar a aula[cite: 47].
+* **Autenticação:** Sistema completo de Login e Logout com persistência de sessão (localStorage) e rotas protegidas.
+* **CRUD de Cursos:** Usuários podem criar, listar, atualizar e deletar cursos.
+    * **Permissões:** Apenas o criador do curso pode editá-lo ou deletá-lo.
+* **CRUD de Aulas:** Dentro de um curso, instrutores podem criar, editar e deletar aulas.
+    * **Permissões Avançadas:** Qualquer instrutor do curso pode criar uma aula, mas apenas o criador da *aula* ou o criador do *curso* pode editar/deletar a aula.
 * **Gerenciamento de Instrutores (API Externa):**
     * O criador do curso pode remover instrutores.
-    * [cite_start]O criador do curso pode adicionar novos instrutores, com sugestões buscadas da API pública `https://randomuser.me`[cite: 56, 86].
-* [cite_start]**Busca e Filtros:** A lista de aulas possui busca dinâmica por título (case-insensitive) e filtro por status (draft, published, archived)[cite: 49, 50], com toda a lógica de filtro e paginação implementada no front-end.
-* [cite_start]**Feedbacks Visuais (UX):** A aplicação utiliza Snackbars do MUI para dar feedback instantâneo de sucesso, aviso ou erro em todas as ações do usuário (criar, editar, deletar)[cite: 24, 94].
+    * O criador do curso pode adicionar novos instrutores, com sugestões buscadas da API pública `https://randomuser.me`.
+* **Busca e Filtros:** A lista de aulas possui busca dinâmica por título (case-insensitive) e filtro por status (draft, published, archived)[cite: 49, 50], com toda a lógica de filtro e paginação implementada no front-end.
+* **Feedbacks Visuais (UX):** A aplicação utiliza Snackbars do MUI para dar feedback instantâneo de sucesso, aviso ou erro em todas as ações do usuário (criar, editar, deletar)
 
 ## Stack Utilizada
 
-* [cite_start]**Front-End:** React (com Hooks)[cite: 98], Vite, React Router, Material UI (MUI) [image_7f81ba.jpg]
-* **Back-End (Simulado):** `json-server` [fonte: 55]
-* **API Externa:** `https://randomuser.me` [fonte: 56]
+* **Front-End:** React (com Hooks), Vite, React Router, Material UI (MUI) [image_7f81ba.jpg]
+* **Back-End (Simulado):** `json-server`
+* **API Externa:** `https://randomuser.me`
 
 ---
 
